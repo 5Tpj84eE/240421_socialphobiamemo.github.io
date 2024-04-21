@@ -40,6 +40,47 @@
     th {
       background-color: #f2f2f2;
     }
+
+    /* メモ欄のスタイル */
+    .memo {
+      margin-top: 20px;
+    }
+
+    .memo-content {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      background-color: #ffffff; /* 白色の背景 */
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 少しの影 */
+      margin-bottom: 20px; /* 下部の余白を追加 */
+    }
+
+    .memo-content p {
+      margin: 0; /* パラグラフのマージンをリセット */
+    }
+
+    .label {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 5px; /* 下部のマージンを追加 */
+      margin-right: 5px; /* 右部のマージンを追加 */
+    }
+
+    .speech-label {
+      background-color: #94b8ff; /* 薄い青色 */
+      color: #333333; /* 黒色のテキスト */
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1); /* 少しの影 */
+    }
+
+    .response-label {
+      background-color: #9df8b2; /* 薄い緑色 */
+      color: #333333; /* 黒色のテキスト */
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1); /* 少しの影 */
+    }
   </style>
 </head>
 
@@ -61,135 +102,150 @@
         </tbody>
       </table>
     </div>
+
+    <!-- メモ欄 -->
+    <div class="memo">
+      <div class="memo-content">
+        <p><span class="label speech-label">1</span> 例の件、大丈夫そうか？</p>
+        <p><span class="label response-label">2</span> ええ、進めていこうと思います</p>
+        <p><span class="label speech-label">1</span> 何かあったら呼んでほしい</p>
+        <p><span class="label response-label">2</span> 承知しました、どうも</p>
+      </div>
+      <div class="memo-content">
+        <p><span class="label speech-label">1</span> 例の件、大丈夫そうか？</p>
+        <p><span class="label response-label">2</span> ええ、進めていこうと思います</p>
+        <p><span class="label speech-label">1</span> 何かあったら呼んでほしい</p>
+        <p><span class="label response-label">2</span> 承知しました、どうも</p>
+      </div>
+    </div>
   </div>
 
   <!-- Materialize JavaScript CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-  <script>
-    // 基本的な攻性防壁のリスト
-    const basicPhrases = [
-      "おはようございます",
-      "よろしくお願いいたします",
-      "お疲れ様です",
-      "どうも",
-      "うんうん",
-      "なるほど",
-      "わあ",
-      "うわ",
-      "ほお",
-      "へえ",
-      "ええ",
-      "そうですね",
-      "ええ、そうですね",
-      "はい",
-      "はい、そうですね",
-      "そうなんですね",
-      "そうですか",
-      "承知しました",
-      "OKですね",
-      "了解しました",
-      "おっしゃる通りです",
-      "ご指摘の通りです",
-      "興味深いです",
-      "それ素晴らしいですね",
-      "ごもっともです",
-      "その通りです",
-      "そのようですね",
-      "納得ですね",
-      "重要な点ですね",
-      "なるほど、わかります",
-      "理解しました",
-      "感心しました",
-      "わかりやすいです",
-      "お受けできません",
-      "お引き受けできません",
-      "お断りせざるを得ません",
-      "ご遠慮させていただきます",
-      "お答えすることができません",
-    ];
+<script>
+  // 基本的な攻性防壁のリスト
+  const basicPhrases = [
+    "おはようございます",
+    "よろしくお願いいたします",
+    "お疲れ様です",
+    "どうも",
+    "うんうん",
+    "なるほど",
+    "わあ",
+    "うわ",
+    "ほお",
+    "へえ",
+    "ええ",
+    "そうですね",
+    "ええ、そうですね",
+    "はい",
+    "はい、そうですね",
+    "そうなんですね",
+    "そうですか",
+    "承知しました",
+    "OKですね",
+    "了解しました",
+    "おっしゃる通りです",
+    "ご指摘の通りです",
+    "興味深いです",
+    "それ素晴らしいですね",
+    "ごもっともです",
+    "その通りです",
+    "そのようですね",
+    "納得ですね",
+    "重要な点ですね",
+    "なるほど、わかります",
+    "理解しました",
+    "感心しました",
+    "わかりやすいです",
+    "お受けできません",
+    "お引き受けできません",
+    "お断りせざるを得ません",
+    "ご遠慮させていただきます",
+    "お答えすることができません",
+  ];
 
-    // 好印象を与える攻性防壁のリスト
-    const positivePhrases = [
-      "ありがとうございます",
-      "いつもありがとうございます",
-      "助かります",
-      "大変助かります",
-      "励まされます",
-      "恐れ入ります",
-      "恐縮です",
-      "とんでもないです",
-      "本当にありがとうございます",
-      "光栄です",
-      "幸運でした",
-      "期待に応えられるよう努めます",
-      "これからも頑張ります",
-      "いつもお世話になっております",
-      "大変うれしいです",
-      "同じ考えです",
-      "同感です",
-      "賛成です",
-      "一緒に取り組んでいこうと思います",
-      "進めていこうと思います",
-      "勉強になります",
-      "参考になります",
-      "よくご存知ですね",
-      "その方法がありますね",
-      "その方法も一つの選択肢ですね",
-      "面白いですね",
-      "考えてみるべきですね",
-      "初めて知りました",
-      "理由を聞いてもいいですか？",
-      "具体的に教えてもらえますか？",
-      "どうしてこのタイミングで？",
-      "言われてみれば",
-      "不手際があったようです",
-      "ご不快な思いをさせてしまって",
-      "深くお詫びします",
-      "失礼いたしました",
-      "申し訳ございません",
-      "ご迷惑をおかけしました",
-    ];
+  // 好印象を与える攻性防壁のリスト
+  const positivePhrases = [
+    "ありがとうございます",
+    "いつもありがとうございます",
+    "助かります",
+    "大変助かります",
+    "励まされます",
+    "恐れ入ります",
+    "恐縮です",
+    "とんでもないです",
+    "本当にありがとうございます",
+    "光栄です",
+    "幸運でした",
+    "期待に応えられるよう努めます",
+    "これからも頑張ります",
+    "いつもお世話になっております",
+    "大変うれしいです",
+    "同じ考えです",
+    "同感です",
+    "賛成です",
+    "一緒に取り組んでいこうと思います",
+    "進めていこうと思います",
+    "勉強になります",
+    "参考になります",
+    "よくご存知ですね",
+    "その方法がありますね",
+    "その方法も一つの選択肢ですね",
+    "面白いですね",
+    "考えてみるべきですね",
+    "初めて知りました",
+    "理由を聞いてもいいですか？",
+    "具体的に教えてもらえますか？",
+    "どうしてこのタイミングで？",
+    "言われてみれば",
+    "不手際があったようです",
+    "ご不快な思いをさせてしまって",
+    "深くお詫びします",
+    "失礼いたしました",
+    "申し訳ございません",
+    "ご迷惑をおかけしました",
+  ];
 
-    // その他の攻性防壁
-    const additionalPhrases = [
-      "",
-    ];
+  // その他の攻性防壁
+  const additionalPhrases = [
+    "",
+  ];
 
-    // テーブルのtbody要素への参照を取得
-    const tableBody = document.getElementById('tableBody');
+  // テーブルのtbody要素への参照を取得
+  const tableBody = document.getElementById('tableBody');
 
-    // 攻性防壁のリストをテーブルに追加する関数
-    function populateTable(phrases, className) {
-      let longerList = basicPhrases.length > positivePhrases.length ? basicPhrases : positivePhrases;
-      longerList = longerList.length > additionalPhrases.length ? longerList : additionalPhrases;
+  // 攻性防壁のリストをテーブルに追加する関数
+  function populateTable(phrases, className) {
+    let longerList = basicPhrases.length > positivePhrases.length ? basicPhrases : positivePhrases;
+    longerList = longerList.length > additionalPhrases.length ? longerList : additionalPhrases;
 
-      for (let i = 0; i < longerList.length; i++) {
-        const row = document.createElement('tr');
-        const cell1 = document.createElement('td');
-        const cell2 = document.createElement('td');
+    for (let i = 0; i < longerList.length; i++) {
+      const row = document.createElement('tr');
+      const cell1 = document.createElement('td');
+      const cell2 = document.createElement('td');
 
-        if (i < basicPhrases.length) {
-          cell1.innerText = basicPhrases[i];
-        }
-
-        if (i < positivePhrases.length) {
-          cell2.innerText = positivePhrases[i];
-        }
-
-        row.appendChild(cell1);
-        row.appendChild(cell2);
-        tableBody.appendChild(row);
+      if (i < basicPhrases.length) {
+        cell1.innerText = basicPhrases[i];
       }
+
+      if (i < positivePhrases.length) {
+        cell2.innerText = positivePhrases[i];
+      }
+
+      row.appendChild(cell1);
+      row.appendChild(cell2);
+      tableBody.appendChild(row);
     }
+  }
 
-    // テーブルに基本的な攻性防壁を追加
-    populateTable(basicPhrases, 'basic-phrase');
-    // テーブルに好印象を与える攻性防壁を追加
-    // populateTable(positivePhrases, 'positive-phrase');
-    // テーブルにその他の攻性防壁を追加
-    // populateTable(additionalPhrases, 'additional-phrase');
-  </script>
+  // テーブルに基本的な攻性防壁を追加
+  populateTable(basicPhrases, 'basic-phrase');
+  // テーブルに好印象を与える攻性防壁を追加
+  // populateTable(positivePhrases, 'positive-phrase');
+  // テーブルにその他の攻性防壁を追加
+  // populateTable(additionalPhrases, 'additional-phrase');
+</script>
 </body>
-
 </html>
