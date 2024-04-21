@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <!-- head部分は省略 -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>攻性防壁メモ</title>
@@ -59,6 +60,10 @@
       margin: 0; /* パラグラフのマージンをリセット */
     }
 
+    .memo-content img {
+      width: 100%; /* パラグラフのマージンをリセット */
+    }
+
     .label {
       display: inline-block;
       padding: 6px 12px;
@@ -71,13 +76,13 @@
     }
 
     .speech-label {
-      background-color: #94b8ff; /* 薄い青色 */
+      background-color: #E0E0E0; /* 薄い青色 */
       color: #333333; /* 黒色のテキスト */
       box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1); /* 少しの影 */
     }
 
     .response-label {
-      background-color: #9df8b2; /* 薄い緑色 */
+      background-color: #F5F5F5; /* 薄い緑色 */
       color: #333333; /* 黒色のテキスト */
       box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1); /* 少しの影 */
     }
@@ -87,6 +92,7 @@
 <body>
   <div class="container">
     <div class="table-wrapper">
+      <!-- テーブル部分は省略 -->
       <table class="striped">
         <colgroup>
           <col style="width: 50%;">
@@ -103,8 +109,14 @@
       </table>
     </div>
 
+    <!-- メモを表示するボタン -->
+    <div style="text-align: center; margin-top: 20px;">
+      <button onclick="toggleMemo()" class="btn waves-effect waves-light">隠しメモ</button>
+    </div>
+
     <!-- メモ欄 -->
-    <div class="memo">
+    <div class="memo" id="memoSection" style="display:none;"> <!-- 初めは非表示 -->
+      <!-- メモ内容は省略 -->
       <div class="memo-content">
         <p><span class="label speech-label">1</span> 例の件、大丈夫そうか？</p>
         <p><span class="label response-label">2</span> ええ、進めていこうと思います</p>
@@ -123,6 +135,7 @@
     </div>
   </div>
 
+  <!-- スクリプト部分は省略 -->
   <!-- Materialize JavaScript CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
@@ -250,5 +263,17 @@
   // テーブルにその他の攻性防壁を追加
   // populateTable(additionalPhrases, 'additional-phrase');
 </script>
+
+  <script>
+    // メモ部分を表示/非表示に切り替える関数
+    function toggleMemo() {
+      const memoSection = document.getElementById('memoSection');
+      if (memoSection.style.display === 'none') {
+        memoSection.style.display = 'block';
+      } else {
+        memoSection.style.display = 'none';
+      }
+    }
+  </script>
 </body>
 </html>
