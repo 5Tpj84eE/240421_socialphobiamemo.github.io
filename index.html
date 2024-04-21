@@ -1,47 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>コミュ障メモ</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <title>攻性防壁メモ</title>
+  <!-- Materialize CSS CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Roboto', sans-serif;
       background-color: #f5f5f5;
     }
+
     .container {
       max-width: 800px;
       margin: 20px auto;
     }
+
     .table-wrapper {
-      overflow-x: auto;
       background-color: #fff;
       border-radius: 5px;
-      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     }
+
     table {
       border-collapse: collapse;
       width: 100%;
     }
-    th, td {
-      border: 1px solid #ddd;
+
+    th,
+    td {
       padding: 10px;
       text-align: center;
     }
+
     th {
       background-color: #f2f2f2;
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="table-wrapper">
-      <table>
+      <table class="striped">
+        <colgroup>
+          <col style="width: 50%;">
+          <col style="width: 50%;">
+        </colgroup>
         <thead>
           <tr>
-            <th>コミュ障メモ</th>
+            <th colspan="2" class="grey lighten-2">攻性防壁メモ</th>
           </tr>
         </thead>
         <tbody id="tableBody">
@@ -51,8 +63,11 @@
     </div>
   </div>
 
+  <!-- Materialize JavaScript CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
   <script>
-    // 基本的なコミュ障のリスト
+    // 基本的な攻性防壁のリスト
     const basicPhrases = [
       "うんうん",
       "なるほど",
@@ -83,7 +98,7 @@
       "お疲れ様です",
     ];
 
-    // 好印象を与えるコミュ障のリスト
+    // 好印象を与える攻性防壁のリスト
     const positivePhrases = [
       "ありがとうございます",
       "いつもありがとうございます",
@@ -110,34 +125,50 @@
       "考えてみるべきですね",
       "一緒に取り組んでいこうと思います",
       "初めて知りました",
-    ];
-
-    // その他のコミュ障
-    const additionalPhrases = [
       "理由を聞いてもいいですか？",
       "具体的に教えてもらえますか？",
       "どうしてこのタイミングで？",
+    ];
+
+    // その他の攻性防壁
+    const additionalPhrases = [
       "",
-  ];
+    ];
 
     // テーブルのtbody要素への参照を取得
     const tableBody = document.getElementById('tableBody');
 
-    // コミュ障のリストをテーブルに追加する関数
+    // 攻性防壁のリストをテーブルに追加する関数
     function populateTable(phrases, className) {
-      // 各コミュ障をテーブルに追加
-      phrases.forEach(phrase => {
-        const row = `<tr><td class="${className}">${phrase}</td></tr>`;
-        tableBody.insertAdjacentHTML('beforeend', row);
-      });
+      let longerList = basicPhrases.length > positivePhrases.length ? basicPhrases : positivePhrases;
+      longerList = longerList.length > additionalPhrases.length ? longerList : additionalPhrases;
+
+      for (let i = 0; i < longerList.length; i++) {
+        const row = document.createElement('tr');
+        const cell1 = document.createElement('td');
+        const cell2 = document.createElement('td');
+
+        if (i < basicPhrases.length) {
+          cell1.innerText = basicPhrases[i];
+        }
+
+        if (i < positivePhrases.length) {
+          cell2.innerText = positivePhrases[i];
+        }
+
+        row.appendChild(cell1);
+        row.appendChild(cell2);
+        tableBody.appendChild(row);
+      }
     }
 
-    // テーブルに基本的なコミュ障を追加
+    // テーブルに基本的な攻性防壁を追加
     populateTable(basicPhrases, 'basic-phrase');
-    // テーブルに好印象を与えるコミュ障を追加
-    populateTable(positivePhrases, 'positive-phrase');
-    // テーブルにその他のコミュ障を追加
-    populateTable(additionalPhrases, 'additional-phrase');
+    // テーブルに好印象を与える攻性防壁を追加
+    // populateTable(positivePhrases, 'positive-phrase');
+    // テーブルにその他の攻性防壁を追加
+    // populateTable(additionalPhrases, 'additional-phrase');
   </script>
 </body>
+
 </html>
